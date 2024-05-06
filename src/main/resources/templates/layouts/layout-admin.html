@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Layout Title</title>
+</head>
+
+<body>
+    <!-- Include header fragment -->
+    <div th:replace="admin/fragments/header :: header"></div>
+
+    <!-- Content fragment -->
+    <div layout:fragment="content">
+        <!-- Content from individual pages will replace this div -->
+    </div>
+
+    <!-- Footer fragment -->
+    <div th:replace="admin/fragments/footer :: footer">
+        <!-- Footer content goes here -->
+        <p>&copy; 2024 My Website</p>
+    </div>
+</body>
+
+</html>
