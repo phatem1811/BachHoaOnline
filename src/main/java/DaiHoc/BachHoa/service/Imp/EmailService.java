@@ -1,19 +1,19 @@
-package DaiHoc.BachHoa.service;
+package DaiHoc.BachHoa.service.Imp;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import DaiHoc.BachHoa.entity.MailBoby;
+import DaiHoc.BachHoa.dto.MailBody;
 
 @Service
-public class IEmailService {
+public class EmailService {
 	private final JavaMailSender javaMailsender;
 	
-	public IEmailService(JavaMailSender javamailsender) {
+	public EmailService(JavaMailSender javamailsender) {
 		this.javaMailsender = javamailsender;
 	}
 	
-	public void sendSimpleMessage(MailBoby mailBody) {
+	public void sendSimpleMessage(MailBody mailBody) {
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setTo(mailBody.to());
 		message.setFrom("namtrung.work@gmail.com");
