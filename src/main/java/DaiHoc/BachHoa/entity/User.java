@@ -42,6 +42,9 @@ public class User {
     
     @Column(name = "role")
     private int role= 0;
+    
+    @OneToOne(mappedBy = "user")
+    private ForgotPassword forgotPassword;
  
 	@JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
