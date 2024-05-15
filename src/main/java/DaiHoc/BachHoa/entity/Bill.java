@@ -31,7 +31,7 @@ public class Bill {
 	private Long id;
 	
 	@Column(name = "date")
-	private Date date;
+	private String date;
 	
 	@Column(name = "total_price")
 	private double total_price;

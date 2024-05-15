@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import DaiHoc.BachHoa.entity.Bill;
 import DaiHoc.BachHoa.entity.BillDetail;
 
 
@@ -12,4 +13,5 @@ import DaiHoc.BachHoa.entity.BillDetail;
 public interface IBillDetailService {
 	List<BillDetail> getAll();
 	List<BillDetail> findBillDetailByBillId(Long id);
+	Boolean save(BillDetail billdetail);
 }

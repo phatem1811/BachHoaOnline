@@ -14,4 +14,5 @@ public interface IPromotionalCodeService {
 	Boolean update(PromotionalCode promotionalCode);
 	Boolean delete(Long Id);
 	PromotionalCode findById(Long id);
+	PromotionalCode findCodeByCode(String code);
 }

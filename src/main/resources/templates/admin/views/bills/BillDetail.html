@@ -33,10 +33,7 @@
 				<!-- Default box -->
 				<div class="col-xs-12">
 					<div class="box">
-						<div class="box-header">
-							
-						
-						</div>
+						<div class="box-header"></div>
 						<!-- /.box-header -->
 						<div class="box-body table-responsive no-padding">
 							<table class="table table-hover">
@@ -45,24 +42,28 @@
 										<th>Hình ảnh sản phẩm</th>
 										<th>Tên sản phẩm</th>
 										<th>Số lượng</th>
-										<th> Tổng tiền</th>
+										<th>Tổng tiền</th>
 									</tr>
-										
+
 									<tr th:each="list: ${billdetail}">
-											<td th:text="${list.product.image}"></td>
-											<td th:text="${list.product.name}"></td>
-											<td th:text="${list.quantity}"></td>
-											<td th:text="${list.totalLineitem}"></td>
+										
+										<td><img
+											th:src="@{'/assets/images/products/' + ${list.product.image}}"
+											alt="User Image" style="height: 100px; weight: 100px">
+										</td>
+										<td th:text="${list.product.name}"></td>
+										<td th:text="${list.quantity}"></td>
+										<td th:text="${list.totalLineitem}"></td>
 
 									</tr>
-									</tbody>
+								</tbody>
 							</table>
 						</div>
-						
+
 						<!-- /.box-body -->
-						
+
 					</div>
-					
+
 					<!-- /.box -->
 				</div>
 				<!-- /.box -->

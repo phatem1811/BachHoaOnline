@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style >
+    /* Character encoding (remove the line) */
+@charset "ISO-8859-1";
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e8f0f7;
+}
+
+.container {
+    max-width: 350px;
+    margin: 80px auto;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #e8f0f7;
+    border-radius: 4px;
+}
+
+.container img {
+    margin-bottom: 20px;
+    width: 150px;
+}
+
+.container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #337ab7;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    width: 80px;
+    margin-right: 15px;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: calc(100% - 115px); 
+    padding: 12px 16px;
+    border: none;
+    outline: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+.form-group button {
+    width: 100%;
+    padding: 10px 12px;
+    background-color: #f0ad4e;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form-group button:hover {
+    background-color: #df852e;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="https://cdn.haitrieu.com/wp-content/uploads/2022/07/Thanh-pho-Ho-Chi-Minh-1-1024x1024.png" alt="WinMart Logo">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="phone">Phone:</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Login</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Ngăn chặn việc gửi form mặc định
+
+        // Lấy giá trị số điện thoại và mật khẩu từ các trường input
+        var phone = document.getElementById("phone").value;
+        var password = document.getElementById("password").value;
+
+        // Gọi hàm loginUser để thực hiện đăng nhập
+        loginUser(phone, password);
+    });
+
+    function loginUser(phone, password) {
+        var loginData = {
+            phone: phone,
+            password: password
+        };
+
+        console.log('Login data:', loginData); // Kiểm tra xem dữ liệu đăng nhập được định dạng đúng không
+
+        fetch('/api/user/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(loginData)
+        })
+        .then(response => {
+            console.log('Response status:', response.status); // In ra status code của response
+            return response.json(); // Chuyển đổi response thành đối tượng JSON
+        })
+        .then(data => {
+    		sessionStorage.setItem("authenticatedUser", JSON.stringify(data));
+            console.log('Login successful:', data);
+            // Redirect hoặc thực hiện hành động khác sau khi đăng nhập thành công
+            window.location.href = '/profile.html';
+        })
+        .catch(error => {
+            console.error('Login error:', error);
+            alert('Login failed. Please check your phone number and password.');
+        });
+    }
+    </script>
+</body>
+</html>

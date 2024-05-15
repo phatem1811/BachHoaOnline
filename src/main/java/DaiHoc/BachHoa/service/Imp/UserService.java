@@ -10,6 +10,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import org.springframework.dao.DataAccessException;
+
+
 import DaiHoc.BachHoa.entity.User;
 import DaiHoc.BachHoa.repository.UserRepository;
 import DaiHoc.BachHoa.service.IUserService;
@@ -80,4 +83,67 @@ public class UserService implements IUserService
 		
 		return new PageImpl<User>(list, pageable,  this.searchUser(keyword).size());
 	}
+	
+	  @Override
+	    public User findByEmail(String email) {
+	        return repo.findByEmail(email);
+	    }
+
+	    @Override
+	    public User findByPhone(String phone) {
+	        return repo.findByPhone(phone);
+	    }
+
+
+	    @Override
+	    public User checkLogin(String phone, String password) {
+	        User user = repo.findByPhone(phone);
+	        if (user != null && user.getPassword().equals(password)) {
+	            return user;
+	        }
+	        return null;
+	    }
+	    
+	    @Override
+	    public boolean isEmailExists(String email) {
+	        return repo.findByEmail(email) != null;
+	    }
+	    
+	    @Override
+	    public boolean existsByPhone(String phone) {
+	        User user = repo.findByPhone(phone);
+	        return user != null;
+	    }
+	    
+	    @Override
+		public void saveOrUpdate(User user) {
+	    	repo.save(user);
+		
+		}
+		@Override
+		public boolean registerUser(User user) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+		@Override
+		public User loginUser(String phone, String password) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		@Override
+		public void logoutUser() {
+			// TODO Auto-generated method stub
+			
+		}
+		@Override
+		public User getUserByPhone(String phone) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+
+	
 }
+
+
+

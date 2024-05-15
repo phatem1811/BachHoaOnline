@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .container h2 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Đăng ký</h2>
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="phone">Số điện thoại:</label>
+                <input type="text" id="phone" name="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Mật khẩu:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="fullname">Họ và tên:</label>
+                <input type="text" id="fullname" name="fullname" required>
+            </div>
+            <div class="form-group">
+                <button type="submit" id="registerButton">Đăng ký</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+		    document.getElementById("registerForm").addEventListener("submit", function(event) {
+		    event.preventDefault(); 
+		    
+		    var password = document.getElementById("password").value;
+		    if (password.length < 6) {
+		        alert("Mật khẩu phải có ít nhất 6 ký tự.");
+		        return;
+		    }
+		    
+		    var formData = {
+		        phone: document.getElementById("phone").value,
+		        password: password,
+		        email: document.getElementById("email").value,
+		        fullname: document.getElementById("fullname").value
+		    };
+		    
+		    fetch('/api/user/register', {
+		        method: 'POST',
+		        headers: {
+		            'Content-Type': 'application/json'
+		        },
+		        body: JSON.stringify(formData)
+		    })
+		    .then(response => {
+		        if (response.ok) {return response.json();
+		        }
+		        throw new Error('Đăng ký không thành công! Vui lòng thử lại.');
+		    })
+		    .then(data => {
+		        sessionStorage.setItem("authenticatedUser", JSON.stringify(data)); // Lưu thông tin người dùng vào Session Storage
+            	alert("Đăng ký và đăng nhập thành công!");
+		        window.location.href = '/login.html';
+		    })
+		    .catch(error => {
+		        console.error('Đăng ký lỗi:', error);
+		        if (error.message) {
+		            alert('Đăng ký không thành công! ' + error.message);
+		        } else {
+		            alert('Đăng ký không thành công! Vui lòng thử lại.');
+		        }
+		    });
+		});
+
+    </script>
+</body>
+</html>

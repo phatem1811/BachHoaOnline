@@ -64,5 +64,10 @@ public class PromotionalCodeService implements IPromotionalCodeService
 		// TODO Auto-generated method stub
 		 return repo.findById(id).get();
 	}
+	@Override
+	public PromotionalCode findCodeByCode(String code) {
+		// TODO Auto-generated method stub
+		return repo.findPromotionalCodeByCode(code);
+	}
 
 }

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="admin/fragments/head :: head">
+
+
+<body>
+
+
+
+	<main class="main">
+		<div class="page-header text-center"
+			th:style="'background-image: url(' + @{/assets/images/page-header-bg.jpg} + ');'">
+			<div class="container">
+				<h1 class="page-title">
+					Thanh Toán</span>
+				</h1>
+			</div>
+			<!-- End .container -->
+		</div>
+		<!-- End .page-header -->
+		<nav aria-label="breadcrumb" class="breadcrumb-nav">
+			<div class="container">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+					<li class="breadcrumb-item"><a href="#">Shop</a></li>
+					<li class="breadcrumb-item active" aria-current="page">Checkout</li>
+				</ol>
+			</div>
+			<!-- End .container -->
+		</nav>
+		<!-- End .breadcrumb-nav -->
+
+		<div class="page-content">
+			<div class="checkout">
+				<div class="container">
+
+					<div class="row">
+						<div class="col-lg-8">
+							<h2 class="checkout-title">Thông tin giao hàng</h2>
+							<!-- End .checkout-title -->
+
+							<form role="form" method="post"
+								th:action="@{/shopping-cart/payment}">
+								<div th:if="${procode != null}">
+									<input type="hidden" class="form-control" name="idcode"
+										th:value="${procode.id}">
+								</div>
+								<label style="font-size: 18px">Họ tên: </label> <span type="text"
+									th:text="${user.fullname}"> </span>
+								<div></div>
+								<label style="font-size: 18px">Số diện thoại: </label> <span type="text"
+									th:text="${user.phone}"> </span>
+								<div></div>
+								<label style="font-size: 18px">Địa chỉ</label> <input type="text" class="form-control"
+									name="address" required> <label>Phương thức
+									thanh toán</label>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="payment"
+										checked value="Tiền mặt"> <label
+										class="form-check-label"> Tiền mặt </label>
+
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="payment"
+										value="Chuyển khoản"> <label class="form-check-label">
+										Ngân hàng </label>
+
+								</div>
+								<button type="submit" class="btn btn-primary">
+
+									<span class="btn-hover-text">Đặt</span>
+								</button>
+								<button onclick="history.back()" class=" btn btn-primary"
+									style="float: right">Back</button>
+							</form>
+
+						</div>
+						<!-- End .col-lg-9 -->
+						<aside class="col-lg-4" style="background-color: #f5f5f5">
+							<div class="summary">
+								<h3 class="summary-title"
+									style="font-weight: 500; letter-spacing: 0; padding-bottom: 1.7rem; border-bottom: .1rem solid #cccccc; margin-bottom: 2.1rem;">Đơn
+									hàng của bạn</h3>
+								<!-- End .summary-title -->
+
+								<table class="table table-summary">
+									<thead>
+										<tr>
+											<th>Sản phẩm</th>
+											<th>Số lượng</th>
+											<th>Tổng giá</th>
+										</tr>
+									</thead>
+
+									<tbody>
+										<tr th:each="list: ${lineitem}">
+											<td th:text="${list.name}"></td>
+											<td th:text="${list.quantity}"></td>
+											<td th:text="${list.price*list.quantity}"></td>
+										</tr>
+										<tr class="summary-subtotal">
+											<td>Tổng:</td>
+											<td></td>
+											<td th:text="${total}"></td>
+										</tr>
+										
+										<tr th:if="${procode != null}">
+											<td>Mã giảm giá</td>
+											<td></td>
+											<td name="code" th:value="${procode.code}"
+												th:text="${procode.code}"></td>
+
+
+										</tr>
+										<tr th:if="${procode != null}">
+											<td>Giảm giá(%)</td>
+											<td></td>
+											<td th:text="${procode.discount}">%</td>
+										</tr>
+										<tr th:if="${procode != null}">
+											<td>Tổng hóa đơn:</td>
+											<td></td>
+											<td th:text="${newtotal}"></td>
+										</tr>
+
+
+
+									</tbody>
+								</table>
+								<form>
+									<div class="input-group">
+
+										<input type="text" class="form-control" required
+											placeholder="coupon code" name="code">
+										<div class="input-group-append"
+											style="margin-top: 10px; margin-bottom: 10px">
+											<button class="btn btn-primary" type="submit">Nhập
+												code</button>
+										</div>
+										<!-- .End .input-group-append -->
+									</div>
+									<!-- End .input-group -->
+								</form>
+								<!-- End .table table-summary -->
+
+
+
+							</div>
+							<!-- End .summary -->
+						</aside>
+						<!-- End .col-lg-3 -->
+					</div>
+					<!-- End .row -->
+					</form>
+
+				</div>
+				<!-- End .container -->
+			</div>
+			<!-- End .checkout -->
+		</div>
+		<!-- End .page-content -->
+	</main>
+	<!-- End .main -->
+
+
+
+	<!-- Plugins JS File -->
+
+
+	<script th:src="@{/admin/js/jquery.min.js}"></script>
+	<script th:src="@{/admin/js/jquery-ui.js}"></script>
+	<script th:src="@{/admin/js/bootstrap.min.js}"></script>
+	<script th:src="@{/admin/js/adminlte.min.js}"></script>
+	<script th:src="@{/admin/js/dashboard.js}"></script>
+	<script th:src="@{/admin/tinymce/tinymce.min.js}"></script>
+	<script th:src="@{/admin/tinymce/config.js}"></script>
+	<script th:src="@{/admin/js/function.js}"></script>
+</body>
+
+
+<!-- Mirrored from portotheme.com/html/molla/checkout.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 19 Jan 2024 02:58:25 GMT -->
+</html>

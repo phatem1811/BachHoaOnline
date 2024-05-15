@@ -7,4 +7,5 @@ import DaiHoc.BachHoa.entity.PromotionalCode;
 @Repository
 public interface PromotionalCodeRepository extends JpaRepository<PromotionalCode, Long>{
 
+	PromotionalCode findPromotionalCodeByCode(String code);
 }

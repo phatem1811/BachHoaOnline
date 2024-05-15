@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+</head>
+<body>
+
+<h2>User Profile</h2>
+
+<div th:if="${user}">
+    <p><strong>Full Name:</strong> <span th:text="${user.fullname}"></span></p>
+    <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
+    <p><strong>Phone:</strong> <span th:text="${user.phone}"></span></p>
+    
+    <form th:action="@{/update-profile}" method="post">
+        <button type="submit">Update Profile</button>
+    </form>
+    
+    <form th:action="@{/change-password}" method="post">
+        <button type="submit">Change Password</button>
+    </form>
+</div>
+
+</body>
+</html>
