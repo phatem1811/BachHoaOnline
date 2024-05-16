@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Ký</title>
+    <script src="https://kit.fontawesome.com/b466990d16.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+    <!-- Thư viện Bootstrap từ CDN -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-YFXog+Tc4tZtBmClKA5ZMyBcnmzFJh4hGjX5J9+z3OUhqFHjBrjOhdnpZsPK8yFf" crossorigin="anonymous">
+
+    <style>
+        /* Thêm CSS của bạn ở đây */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, rgb(255, 150, 100), #ff5e62);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            text-align: center;
+            position: relative;
+        }
+        .message {
+            color: rgb(255, 128, 64);
+            margin-bottom: 15px;
+        }
+        .logo {
+            width: 80px;
+            margin-bottom: 20px;
+        }
+        .nav-icons {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 10px;
+        }
+        .nav-icons a {
+            font-size: 24px;
+            color: #ff5e62;
+            text-decoration: none;
+        }
+        .nav-back {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 24px;
+            color: #ff5e62;
+            text-decoration: none;
+        }
+        h2 {
+            margin-bottom: 25px;
+            color: #333333;
+            font-size: 24px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+            position: relative;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333333;
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: #ff5e62;
+            outline: none;
+        }
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 35px;
+            cursor: pointer;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            background-color: #ff5e62;
+            color: #ffffff;
+            border: none;
+        }
+        input[type="submit"]:hover {
+            background-color: #e6555a;
+        }
+        .agree-checkbox {
+            display: inline-block;
+            margin-right: 5px;
+        }
+        .agreement {
+            text-align: left;
+            margin: 15px 0;
+        }
+        .login-button {
+            width: 48%;
+            background-color: #e0e0e0;
+            color: #333;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .login-button:hover {
+            background-color: #d0d0d0;
+        }
+        .or-divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 20px 0;
+            color: #999;
+        }
+        .or-divider::before,
+        .or-divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #cccccc;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="javascript:history.back()" class="nav-back"><i class="fa-solid fa-arrow-left"></i></a>
+        <div class="nav-icons">
+            <a href="/home"><i class="fa-solid fa-house"></i></a> 
+        </div>
+        <img src="logo.png" alt="Logo" class="logo"> 
+        
+        <div class="message" th:if="${error}" th:text="${error}"></div> <!-- Hiển thị thông báo lỗi -->
+
+        <h2>Đăng Ký</h2>
+        <form th:action="@{/register}" method="post" onsubmit="return validateForm()">
+            <div class="form-group">
+                <label for="fullname">Họ và Tên</label>
+                <input type="text" id="fullname" name="fullname" placeholder="Nhập họ và tên của bạn" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" id="email" name="email" placeholder="Nhập email của bạn" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Số Điện Thoại</label>
+                <input type="text" id="phone" name="phone" placeholder="Nhập số điện thoại của bạn" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Mật Khẩu</label>
+                <input type="password" id="password" name="password" placeholder="Nhập mật khẩu của bạn" required>
+                <i class="fa-solid fa-eye toggle-password" onclick="togglePassword()"></i>
+                
+            </div>
+            <div class="agreement">
+                <input type="checkbox" id="agree-checkbox" class="agree-checkbox">
+                <label for="agree-checkbox">Bằng việc chọn vào Đăng ký bạn đồng ý với các điều kiện áp dụng của winmart.vn và trở thành Hội viên HoMart</label>
+			</div>
+			<input type="submit" value="Đăng Ký" id="submit-btn" disabled>
+	</form>    
+	<div class="or-divider">
+        <span>Hoặc</span>
+    </div>
+    <a href="/login" class="login-button">Đăng Nhập</a>
+</div>
+<script>
+    function togglePassword() {
+        var passwordInput = document.getElementById('password');
+        var passwordToggle = document.querySelector('.toggle-password');
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            passwordToggle.classList.remove('fa-eye');
+            passwordToggle.classList.add('fa-eye-slash');
+        } else {
+            passwordInput.type = 'password';
+            passwordToggle.classList.remove('fa-eye-slash');
+            passwordToggle.classList.add('fa-eye');
+        }
+    }
+
+    document.getElementById('agree-checkbox').addEventListener('change', function() {
+        var submitButton = document.getElementById('submit-btn');
+        submitButton.disabled = !this.checked;
+    });
+    function validateForm() {
+        var email = document.getElementById('email').value;
+        var phone = document.getElementById('phone').value;
+        var password = document.getElementById('password').value;
+
+        // Kiểm tra email
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            alert('Email không hợp lệ!');
+            return false;
+        }
+
+        // Kiểm tra số điện thoại
+        if (phone.length !== 10 || isNaN(phone)) {
+            alert('Số điện thoại không hợp lệ!');
+            return false;
+        }
+
+        // Kiểm tra mật khẩu
+        if (password.length < 6) {
+            alert('Mật khẩu phải có ít nhất 6 ký tự!');
+            return false;
+        }
+
+        return true; // Nếu tất cả điều kiện đều đúng
+    }
+</script>
+</body>
+</html>

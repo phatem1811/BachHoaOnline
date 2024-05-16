@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill Details</title>
+</head>
+<body>
+    <h1>Bill Details</h1>
+    <!-- Bill Information -->
+    <p>ID: <span th:text="${bill.id}"></span></p>
+    <p>Date: <span th:text="${bill.date}"></span></p>
+    <p>Total Price: <span th:text="${bill.total_price}"></span></p>
+    <p>Method of Payment: <span th:text="${bill.method_payment}"></span></p>
+    <p>Address: <span th:text="${bill.address}"></span></p>
+    
+    <!-- Bill Items -->
+    <h2>Bill Items</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Product Name</th> <!-- Change from "Product ID" to "Product Name" -->
+                <th>Quantity</th>
+                <th>Total Lineitem</th>
+                <th>Review</th> <!-- Add Review Column -->
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Iterate through bill details -->
+            <tr th:each="detail : ${billDetails}">
+                <td th:text="${detail.product.name}"></td> <!-- Change from "${detail.product.id}" to "${detail.product.name}" -->
+                <td th:text="${detail.quantity}"></td>
+                <td th:text="${detail.totalLineitem}"></td>
+                <td>
+                    <a th:href="@{/review/{productId}(productId=${detail.product.id})}">
+                        Review
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

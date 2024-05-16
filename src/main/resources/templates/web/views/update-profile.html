@@ -1,0 +1,25 @@
+<!-- update-profile.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Profile</title>
+</head>
+<body>
+    <h1>Update Profile</h1>
+	<form th:action="@{/update-profile}" method="post">
+    <label for="fullname">Full Name:</label>
+    <input type="text" id="fullname" name="fullname" th:value="${user.fullname}">
+    <br>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" th:value="${user.email}">
+    <br>
+    <label for="phone">Phone:</label>
+    <input type="text" id="phone" name="phone" th:value="${user.phone}">
+    <br>
+    <input type="submit" value="Update">
+</form>
+
+</body>
+</html>

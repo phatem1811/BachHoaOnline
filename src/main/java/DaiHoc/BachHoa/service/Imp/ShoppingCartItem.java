@@ -50,7 +50,12 @@ public class ShoppingCartItem implements IShoppingCartItem {
 	}
 	@Override
 	public int getCount() {
-		return maps.values().size();
+		int count = 0;
+		Collection<LineItem> list = this.getAllLineItems();
+		for (LineItem lineitem :list) {
+			count+=1;
+		}
+		return count;
 	}
 	@Override
 	public double getAmount() {

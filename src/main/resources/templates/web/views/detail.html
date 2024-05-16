@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>Bách Hóa Online</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/web/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/web/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Topbar Start -->
+    <div class="container-fluid">
+        <div class="row align-items-center py-3 px-xl-5">
+            <div class="col-lg-3 d-none d-lg-block">
+                <a href="/home" class="text-decoration-none">
+                    <h1 class="m-0 display-5 font-weight-semi-bold"><span class="text-green font-weight-bold border px-3 mr-1">B</span>Bách Hóa</h1>
+                </a>
+            </div>
+            <div class="col-lg-6 col-6 text-left">
+                <form action="">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Tìm kiếm sản phẩm">
+                        <div class="input-group-append">
+                            <span class="input-group-text bg-transparent text-green">
+                                <i class="fa fa-search"></i>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-3 col-6 text-right">
+				<a href="" class="btn border"> <i
+					class="fas fa-heart text-primary"></i> <span class="badge">0</span>
+				</a> 
+				<a href="cart.html" class="btn border"> <i
+					class="fas fa-shopping-cart text-primary"></i> <span class="badge">0</span>
+				</a>
+				 <a href="/profile" th:if="${user != null}" class="btn border"> <i
+					class="fas fa-user text-primary"></i>
+				</a>
+				 <a href="/profile" th:if="${user != null}" class="btn border" th:text="${user.fullname}"> </a>
+				<a th:if="${user == null}"  href="/login" class="btn border"> Đăng nhập </a>
+				<a th:if="${user == null}"  href="/login" class="btn border"> Đăng kí </a>
+				<a th:if="${user != null}"  href="/logout" class="btn border"> Đăng xuất </a>
+			</div>
+        </div>
+    </div>
+    <!-- Topbar End -->
+
+    <!-- Shop Detail Start -->
+    <div class="container-fluid py-5">
+        <div class="text-center mb-4">
+            <h2 class="section-title px-5"><span class="px-2" >Chi tiết sản phẩm</span></h2>
+        </div>
+        <div class="row px-xl-5">
+            <div class="col-lg-5 pb-5">
+                <div id="product-carousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner border">
+                        <!-- Carousel items will be injected here by JavaScript -->
+                    </div>
+                    <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
+                        <i class="fa fa-chevron-left"></i>
+                    </a>
+                    <a class="carousel-control-next" href="#product-carousel" data-slide="next">
+                        <i class="fa fa-chevron-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-7 pb-5">
+                <h3 id="product-name" class="font-weight-semi-bold"></h3>
+                <div class="d-flex mb-3">
+                    <div class="text-green mr-2">
+                        <small class="fas fa-star"></small>
+                        <small class="fas fa-star"></small>
+                        <small class="fas fa-star"></small>
+                        <small class="fas fa-star-half-alt"></small>
+                        <small class="far fa-star"></small>
+                    </div>
+                    <small class="pt-1">(50 Đánh giá)</small>
+                </div>
+                <h3 id="product-price" class="font-weight-semi-bold mb-4"></h3>
+                <p id="product-description" class="mb-4"></p>
+                <div class="align-items-center mb-4 pt-2">
+                    <div class="input-group quantity mr-3" style="width: 130px;">
+                       
+                    </div>
+                    <a th:href="@{/shopping-cart/add/{id}(id=${product.id})}" class="btn btn-green px-3 mt-5"><i class="fa fa-shopping-cart mr-1"></i> Thêm vào giỏ hàng</a>
+                </div>
+            </div>
+        </div>
+        <div class="row px-xl-5">
+            <div class="col">
+                <div class="nav nav-tabs justify-content-center border-secondary mb-4">
+                    <a class="nav-item nav-link active" data-toggle="tab" href="#tab-pane-1">Mô tả</a>
+                    <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-3">Đánh giá</a>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="tab-pane-1">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-12">
+                                <h4 class="mb-3">Mô tả</h4>
+                                <p th:text="${product.productDetail.description}"></p>
+                                <img class="img-fluid w-100" th:src="@{'/assets/images/products/' + ${product.image}}"
+											alt="" style="height: 300px; weight: 50px">
+                            </div>
+                            <div class="col-lg-8 col-md-12">
+                                <h4 class="mb-3">Thông tin sản phẩm</h4>
+                                <div class="mb-2">
+                                    <strong>Hạn sử dụng:</strong>
+                                    <p th:text="${product.productDetail.expert}"></p>
+                                </div>
+                                <div class="mb-2">
+                                    <strong>Ngày sản xuất:</strong>
+                                    <p th:text="${product.productDetail.manufacture}"></p>
+                                </div>
+                                <div class="mb-2">
+                                    <strong>Bảo quản:</strong>
+                                    <p th:text="${product.productDetail.preserve}"></p>
+                                </div>
+                                <div class="mb-2">
+                                    <strong>Chế biến:</strong>
+                                    <p th:text="${product.productDetail.processing}"></p>
+                                </div>
+                                <div class="mb-2">
+                                    <strong>Khối lượng:</strong>
+                                    <p th:text="${product.productDetail.weight}"></p>
+                                </div>
+                                <div class="mb-2">
+                                    <strong>Chi nhánh:</strong>
+                                    <p th:text="${product.productDetail.branch.name}"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="tab-pane-3">
+                        <div class="row">
+                            <!-- Review column -->
+                            <div class="col-md-6">
+                                <h4 class="mb-4">1 đánh giá cho "Áo sơ mi phong cách nhiều màu sắc"</h4>
+                                <div class="media mb-4">
+                                    <img src="/web/img/user.jpg" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                                    <div class="media-body">
+                                        <h6>Nguyễn Văn A<small> - <i>01 Jan 2045</i></small></h6>
+                                        <div class="text-green mb-2">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star-half-alt"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                        <p>Rất tốt, sản phẩm chất lượng.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Review column -->
+
+                            <!-- Leave Review section -->
+                            <div class="col-md-6">
+                                <h4 class="mb-4">Để lại đánh giá</h4>
+                                <small>Email của bạn sẽ không được công khai. Các trường bắt buộc được đánh dấu *</small>
+                                <div class="d-flex my-3">
+                                    <p class="mb-0 mr-2">Đánh giá của bạn * :</p>
+                                    <div class="text-green">
+                                        <i class="far fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    </div>
+                                </div>
+                                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                                <script>
+                                    $(document).ready(function() {
+                                      $('.fa-star').on('click', function() {
+                                        var index = $(this).index();
+                                        $('.fa-star').slice(0, index + 1).removeClass('far').addClass('fas');
+                                        $('.fa-star').slice(index + 1).removeClass('fas').addClass('far');
+                                      });
+                                    });
+                                </script>
+                                <form>
+                                    <div class="form-group">
+                                        <label for="message">Đánh giá của bạn *</label>
+                                        <textarea id="message" cols="30" rows="5" class="form-control"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="name">Tên của bạn *</label>
+                                        <input type="text" class="form-control" id="name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email của bạn *</label>
+                                        <input type="email" class="form-control" id="email">
+                                    </div>
+                                    <div class="form-group mb-0">
+                                        <input type="submit" value="Gửi đánh giá" class="btn btn-green px-3">
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- End Leave Review section -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Shop Detail End -->
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-secondary text-dark mt-5 pt-5">
+        <div class="row px-xl-5 pt-5">
+            <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
+                <a href="" class="text-decoration-none">
+                    <h1 class="mb-4 display-5 font-weight-semi-bold"><span class="text-green font-weight-bold border border-white px-3 mr-1">E</span>Bách Hóa</h1>
+                </a>
+                <p>Bách hóa uy tín số 1 Việt Nam</p>
+                <p class="mb-2"><i class="fa fa-map-marker-alt text-green mr-3"></i>123 Lê Văn Cẩu, Phường 9, Quận 1, TP.Thủ Đức</p>
+                <p class="mb-2"><i class="fa fa-envelope text-green mr-3"></i>bachhoaonline@gmail.com</p>
+                <p class="mb-0"><i class="fa fa-phone-alt text-green mr-3"></i>079X-XXX-XXX</p>
+            </div>
+            <div class="col-lg-8 col-md-12">
+                <div class="row">
+                    <div class="container-fluid bg-secondary my-2">
+                        <div class="row justify-content-md-center px-xl-5">
+                            <div class="text-center mb-2 pb-2">
+                                <h2 class="section-title px-5 mb-3"><span class="bg-secondary px-2">Nhận thông tin mới nhất</span></h2>
+                                <p>Vui lòng cung cấp địa chỉ email của bạn để nhận thông tin cập nhật hàng ngày về các sản phẩm mới nhất của chúng tôi.</p>
+                            </div>
+                            <form action="">
+                                <div class="input-group">
+                                    <input type="text" class="form-control border-white p-4" placeholder="Nhập email tại đây">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-green px-4">Đăng ký</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row border-top border-light mx-xl-5 py-4">
+            <div class="col-md-6 px-xl-0">
+                <p class="mb-md-0 text-center text-md-left text-dark">
+                    &copy; <a class="text-dark font-weight-semi-bold" href="#">Bách Hóa Online</a>. All Rights Reserved.
+                </p>
+            </div>
+            <div class="col-md-6 px-xl-0 text-center text-md-right">
+                <img class="img-fluid" src="img/payments.png" alt="">
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-green back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="/web/lib/easing/easing.min.js"></script>
+    <script src="/web/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="/web/mail/jqBootstrapValidation.min.js"></script>
+    <script src="/web/mail/contact.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/web/js/main.js"></script>
+
+    <!-- Product Detail Fetching Script -->
+    <script>
+        $(document).ready(function() {
+            // Thay thế với ID sản phẩm thực tế bạn muốn lấy
+            var productId = '12345';
+            
+            $.ajax({
+                url: '/api/productdetail/' + productId,
+                method: 'GET',
+                success: function(data) {
+                    // Hiển thị thông tin sản phẩm trên trang web
+                    $('#product-name').text(data.name);
+                    $('#product-price').text(data.price + ' VND');
+                    $('#product-description').text(data.description);
+                    $('#product-detail-description').text(data.detailDescription);
+                    $('#product-exp-date').text(data.expireDate);
+                    $('#product-mfd-date').text(data.manufactureDate);
+                    $('#product-preserve').text(data.preserve);
+                    $('#product-processing').text(data.processing);
+                    $('#product-weight').text(data.weight);
+                    $('#product-branch').text(data.branch);
+
+                    // Xử lý hình ảnh sản phẩm
+                    var carouselInner = $('.carousel-inner');
+                    carouselInner.empty();
+                    data.images.forEach(function(image, index) {
+                        var activeClass = index === 0 ? 'active' : '';
+                        var carouselItem = '<div class="carousel-item ' + activeClass + '"><img class="w-100 h-100" src="' + image + '" alt="Ảnh sản phẩm"></div>';
+                        carouselInner.append(carouselItem);
+                    });
+                },
+                error: function(error) {
+                    console.error('Error fetching product details:', error);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

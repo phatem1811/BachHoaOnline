@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Review Form</title>
+</head>
+<body>
+    <h2>Review for Product: <span th:text="${productId}"></span></h2>
+    <form th:action="@{/review/{productId}}" method="post" th:object="${review}">
+        <div>
+            <label for="rating">Rating:</label>
+            <select id="rating" name="rating" th:field="*{rating}">
+                <option value="1">1 star</option>
+                <option value="2">2 stars</option>
+                <option value="3">3 stars</option>
+                <option value="4">4 stars</option>
+                <option value="5">5 stars</option>
+            </select>
+        </div>
+        <div>
+            <label for="content">Content:</label>
+            <textarea id="content" name="content" th:field="*{content}"></textarea>
+        </div>
+        <button type="submit">Submit Review</button>
+    </form>
+</body>
+</html>

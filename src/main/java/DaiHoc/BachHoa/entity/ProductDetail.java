@@ -47,10 +47,10 @@ public class ProductDetail {
 	@Column(name = "processing")
     private String processing;
 	
-	@Column(name = "manufacture")
+	@Column(name = "mfd")
     private Date manufacture ;
 	
-	@Column(name = "expert")
+	@Column(name = "exp")
     private Date expert  ;
 	
 	@JsonIgnore

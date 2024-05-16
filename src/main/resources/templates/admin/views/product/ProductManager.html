@@ -40,39 +40,7 @@
 								<div class="col-md-8">
 
 
-									<form role="form">
-										<span>
-											<div class="col-md-5">
-												<label> Danh mục</label> 
-												<select name="cateid" 
-													class="form-control select2 select2-hidden-accessible">
-													<option th:value=0 th:text="All"></option>
-													<option th:each="category : ${listCate}"  
-														th:value="${category.id}" th:text="${category.name}"
-														th:selected="${category.id == cateid}">
-													</option>
-												</select>
-											</div>
-
-											<div class="col-md-5">
-												<label> Nhà sản xuất</label> <select name="manuid"
-													class="form-control select2 select2-hidden-accessible">
-													<option th:value=0 th:text="All"></option>
-													<option th:each="subcate : ${listSubcate}" th:value="${subcate.id}"
-														th:text="${subcate.name}"
-														th:selected="${subcate.id == subcateid}"></option>
-
-												</select>
-
-											</div>
-
-											<div class="col-md-2">
-												<button type="submit" class="btn btn-primary" 
-													style="margin-top:20px; float: left">Lọc</button>
-											</div>
-
-										</span>
-									</form>
+									
 								</div>
 
 
@@ -120,12 +88,12 @@
 										<td th:text="${list.subcategory.name}"></td>
 										<td th:text="${list.price}"></td>
 										<td>
-											<img	th:src="@{'/assets/images/products/' + ${list.image}}"
+											<img th:src="@{'/assets/images/products/' + ${list.image}}"
 											alt="User Image" style="height: 100px; weight: 100px">
 										</td>
 											
 										<td>
-										<a th:href="@{/shopping-cart/add/{id}(id=${list.id})}"
+										<a th:href="@{/admin/update-product/{id}(id=${list.id})}"
 											class="btn btn-success">Chỉnh sửa</a>
 											 <a
 											th:href="@{/admin/delete-product/{id}(id=${list.id})}   "

@@ -52,7 +52,14 @@ public class CartController {
 	private PromotionalCodeService promotionalCodeService;
 
 	@GetMapping("view")
-	public String viewCart(Model model, @Param("code") String code) {
+	public String viewCart(HttpSession session,Model model, @Param("code") String code) {
+		if (session.getAttribute("user") != null) {
+			User user = (User) session.getAttribute("user");
+			model.addAttribute("user", user);
+		}
+		else {
+			model.addAttribute("user", null);
+		}
 		Collection<LineItem> lineitem = cartService.getAllLineItems();
 		double total = cartService.getTotal();
 		int count = cartService.getCount();
@@ -73,7 +80,7 @@ public class CartController {
 	}
 
 	@GetMapping("/add/{id}")
-	public String addCart(Model model, @ModelAttribute("id") Long id) {
+	public String addItem(Model model, @ModelAttribute("id") Long id) {
 		Product product = productService.getByID(id);
 		if (product != null) {
 			LineItem item = new LineItem();
@@ -83,7 +90,7 @@ public class CartController {
 			item.setQuantity(1);
 			item.setImage(product.getImage());
 			cartService.add(item);
-			return "redirect:/shopping-cart/view";
+			return "redirect:/home";
 		}
 
 		return null;
@@ -189,7 +196,7 @@ public class CartController {
 				billdetailservice.save(billdetail);
 			}
 			cartService.clear();
-			return "redirect:/admin";
+			return "redirect:/home";
 		}
 		
 		return "redirect:/login";

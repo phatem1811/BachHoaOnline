@@ -99,6 +99,12 @@ public class ProductService implements IProductService{
 		return repo.searchProduct(keyword);
 	}
 
+	@Override
+	public List<Product> GetProductByCategory(Long id) {
+		// TODO Auto-generated method stub
+		return repo.findByCategoryId(id);
+	}
+
 
 
 }

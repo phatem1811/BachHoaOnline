@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.dao.DataAccessException;
 
-
+import DaiHoc.BachHoa.entity.Category;
 import DaiHoc.BachHoa.entity.User;
 import DaiHoc.BachHoa.repository.UserRepository;
 import DaiHoc.BachHoa.service.IUserService;
@@ -28,7 +28,14 @@ public class UserService implements IUserService
 	@Override
 	public Boolean save(User user) {
 		// TODO Auto-generated method stub
-		return null;
+		try {
+			repo.save(user);
+			return true;
+		}
+		 catch (Exception e) {
+			 e.printStackTrace();
+		 }
+		 return false;
 	}
 	@Override
 	public Boolean update(User user) {

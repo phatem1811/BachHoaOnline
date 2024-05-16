@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction History</title>
+</head>
+<body>
+    <h1>Transaction History</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Bill ID</th>
+                <th>Date</th>
+                <th>Total Price</th>
+                <th>Method of Payment</th>
+                <th>Address</th>
+                <th>View Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Iterate through bills -->
+            <tr th:each="bill : ${bills}">
+                <td th:text="${bill.id}"></td>
+                <td th:text="${bill.date}"></td>
+                <td th:text="${bill.total_price}"></td>
+                <td th:text="${bill.method_payment}"></td>
+                <td th:text="${bill.address}"></td>
+                <td><a th:href="@{/transaction-history/{billId}(billId=${bill.id})}">View</a></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

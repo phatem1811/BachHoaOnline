@@ -16,7 +16,7 @@ public interface IProductService {
 	boolean create(Product product);
 	boolean update(Product product);
 	boolean delete(Long id);
-	
+	List<Product> GetProductByCategory(Long id);
 	
 	List<Product> searchProduct(String keyword);
 	Page<Product> getAll(Integer pageNo);

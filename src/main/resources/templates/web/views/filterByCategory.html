@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8">
+<title>Bách Hóa Online</title>
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+<!-- Favicon -->
+<link href="img/favicon.ico" rel="icon">
+
+<!-- Google Web Fonts -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link
+	href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+	rel="stylesheet">
+
+<!-- Font Awesome -->
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+	rel="stylesheet">
+
+<!-- Libraries Stylesheet -->
+<link href="/web/lib/owlcarousel/assets/owl.carousel.min.css"
+	rel="stylesheet">
+
+<!-- Customized Bootstrap Stylesheet -->
+<link href="/web/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+	<!-- Topbar Start -->
+	<div class="container-fluid">
+
+		<div class="row align-items-center py-3 px-xl-5">
+			<div class="col-lg-3 d-none d-lg-block">
+				<a href="index.html" class="text-decoration-none">
+					<h1 class="m-0 display-5 font-weight-semi-bold">
+						<span class="text-primary font-weight-bold border px-3 mr-1" style="Color:#00994C !important " >B</span>Bách
+						Hóa
+					</h1>
+				</a>
+			</div>
+			<div class="col-lg-6 col-6 text-left">
+				<form action="">
+					<div class="input-group">
+						<input type="text" class="form-control"
+							placeholder="Search for products">
+						<div class="input-group-append">
+							<span class="input-group-text bg-transparent text-primary">
+								<i class="fa fa-search"></i>
+							</span>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="col-lg-3 col-6 text-right">
+				<a href="" class="btn border"> <i
+					class="fas fa-heart text-primary"></i> <span class="badge">0</span>
+				</a> 
+				<a href="/shopping-cart/view" class="btn border"> <i
+					class="fas fa-shopping-cart text-primary"></i> <span class="badge"></span>
+				</a>
+				 <a href="/profile" th:if="${user != null}" class="btn border"> <i
+					class="fas fa-user text-primary"></i>
+				</a>
+				 <a href="/profile" th:if="${user != null}" class="btn border" th:text="${user.fullname}"> </a>
+				<a th:if="${user == null}"  href="/login" class="btn border"> Đăng nhập </a>
+				<a th:if="${user == null}"  href="/login" class="btn border"> Đăng kí </a>
+				<a th:if="${user != null}"  href="/logout" class="btn border"> Đăng xuất </a>
+			</div>
+		</div>
+		</div>
+
+	<!-- Topbar End -->
+
+	<!-- Navbar Start -->
+	<div class="container-fluid mb-5">
+		<div class="row border-top px-xl-5">
+			<div class="col-lg-3 d-none d-lg-block">
+				<a
+					class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100"
+					data-toggle="collapse" href="#navbar-vertical"
+					style="height: 65px; margin-top: -1px; padding: 0 30px; background-color:#00994C !important">
+					<h6 class="m-0">Danh mục</h6> <i
+					class="fa fa-angle-down text-dark"></i>
+				</a>
+				<nav
+					class="collapse show navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0"
+					id="navbar-vertical">
+					<div class="navbar-nav w-100 overflow-hidden" style="height: 410px">
+
+						<div class="nav-item dropdown" th:each="list: ${category}">
+							<a th:href="@{/home/filter/{id}(id=${list.id})}"
+								> <p  class="nav-link" th:text="${list.name}" >   </p></a>
+							<!--<div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0"
+								th:each="listsub: ${subcategory}">
+									<a th:if="${listsub.category.id == list.id}" href="" class="dropdown-item" th:text="${listsub.name}"></a>
+							</div>-->
+
+						</div>
+
+					</div>
+				</nav>
+			</div>
+			<div class="col-lg-9">
+				<nav
+					class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
+					<button type="button" class="navbar-toggler" data-toggle="collapse"
+						data-target="#navbarCollapse">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse justify-content-between"
+						id="navbarCollapse">
+						<div class="navbar-nav mr-auto py-0">
+							<a href="index.html" class="nav-item nav-link">Home</a> <a
+								href="shop.html" class="nav-item nav-link active">Shop</a> <a
+								href="contact.html" class="nav-item nav-link">Contact</a>
+						</div>
+					</div>
+				</nav>
+				<div id="header-carousel" class="carousel slide"
+					data-ride="carousel">
+					<div class="carousel-inner">
+						<div class="carousel-item active" style="height: 410px;">
+							<img class="img-fluid" src="/assets/images/products/banner.jpg" alt="Image">
+							<div
+								class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+								<div class="p-3" style="max-width: 700px;">
+									<h4 class="text-light text-uppercase font-weight-medium mb-3">10%
+										Off Your First Order</h4>
+									<h3 class="display-4 text-white font-weight-semi-bold mb-4">Special
+										Offers</h3>
+									<a href="shop.html" class="btn btn-light py-2 px-3">Shop
+										Now</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Navbar End -->
+
+	<!-- Products Start -->
+	<div class="container-fluid pt-5" >
+		<div class="text-center mb-4">
+			<h2 class="section-title px-5">
+				<span class="px-2" th:text="${c.name}"></span>
+			</h2>
+		</div>
+
+		<div class="row px-xl-5 pb-3">
+			<div class="col-lg-3 col-md-6 col-sm-12 pb-1"
+				th:each="listproduct: ${list}">
+				<div >
+					<div class="card product-item border-0 mb-4">
+						<div
+							class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+							<img class="img-fluid w-100" th:src="@{'/assets/images/products/' + ${listproduct.image}}"
+											alt="" style="height: 250px; weight: 200px">
+						</div>
+						<div
+							class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+							<h6 class="text-truncate mb-3" th:text="${listproduct.name}"></h6>
+							<div class="d-flex justify-content-center">
+								<h6 th:text="${listproduct.price}"></h6>
+							</div>
+						</div>
+						<div
+							class="card-footer d-flex justify-content-between bg-light border">
+							<a th:href="@{/home/detail/{id}(id=${listproduct.id})}" 
+							class="btn btn-sm text-dark p-0"><i
+								class="fas fa-eye text-primary mr-1"></i>View Detail</a>
+							<a th:href="@{/shopping-cart/add/{id}(id=${listproduct.id})}" 
+							class="btn btn-sm text-dark p-0"><i
+								class="fas fa-shopping-cart text-primary mr-1"></i>Mua</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+
+		</div>
+	</div>
+	<!-- Products End -->
+	</div>
+	</div>
+	<!-- Shop End -->
+
+
+	<!-- Footer Start -->
+	<div class="container-fluid bg-secondary text-dark mt-5 pt-5">
+		<div class="row px-xl-5 pt-5">
+			<div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
+				<a href="" class="text-decoration-none">
+					<h1 class="mb-4 display-5 font-weight-semi-bold">
+						<span
+							class="text-primary font-weight-bold border border-white px-3 mr-1">E</span>Bách
+						Hóa
+					</h1>
+				</a>
+				<p>Bách hóa uy tín số 1 Việt Nam</p>
+				<p class="mb-2">
+					<i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Lê Văn
+					Cẩu, Phường 9, Quận 1, TP.Thủ Đức
+				</p>
+				<p class="mb-2">
+					<i class="fa fa-envelope text-primary mr-3"></i>bachhoaonline@gmail.com
+				</p>
+				<p class="mb-0">
+					<i class="fa fa-phone-alt text-primary mr-3"></i>079X-XXX-XXX
+				</p>
+			</div>
+			<div class="col-lg-8 col-md-12">
+				<div class="row">
+					<div class="container-fluid bg-secondary my-2">
+						<div class="row justify-content-md-center px-xl-5">
+							<div class="text-center mb-2 pb-2">
+								<h2 class="section-title px-5 mb-3">
+									<span class="bg-secondary px-2">Stay Updated</span>
+								</h2>
+								<p>Please give us with your email address if you would like
+									to get daily updates about our newest products.</p>
+							</div>
+							<form action="">
+								<div class="input-group">
+									<input type="text" class="form-control border-white p-4"
+										placeholder="Email Here">
+									<div class="input-group-append">
+										<button class="btn btn-primary px-4">Subscribe</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row border-top border-light mx-xl-5 py-4">
+			<div class="col-md-6 px-xl-0">
+				<p class="mb-md-0 text-center text-md-left text-dark">
+					&copy; <a class="text-dark font-weight-semi-bold" href="#">Bách
+						Hóa Online</a>. All Rights Reserved.
+				</p>
+			</div>
+			<div class="col-md-6 px-xl-0 text-center text-md-right">
+				<img class="img-fluid" src="img/payments.png" alt="">
+			</div>
+		</div>
+	</div>
+	<!-- Footer End -->
+
+
+	<!-- Back to Top -->
+	<a href="#" class="btn btn-primary back-to-top"><i
+		class="fa fa-angle-double-up"></i></a>
+
+
+	<!-- JavaScript Libraries -->
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+	<script src="/web/lib/easing/easing.min.js"></script>
+	<script src="/web/lib/owlcarousel/owl.carousel.min.js"></script>
+
+	<!-- Contact Javascript File -->
+	<script src="/web/mail/jqBootstrapValidation.min.js"></script>
+	<script src="/web/mail/contact.js"></script>
+
+	<!-- Template Javascript -->
+	<script src="/web/js/main.js"></script>
+</body>
+
+</html>
