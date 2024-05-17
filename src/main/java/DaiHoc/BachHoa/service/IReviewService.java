@@ -9,4 +9,5 @@ import DaiHoc.BachHoa.entity.Review;
 @Component
 public interface IReviewService {
 	List<Review> getAll();
+	void saveReview(Review review);
 }

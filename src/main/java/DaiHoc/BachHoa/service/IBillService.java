@@ -20,5 +20,5 @@ public interface IBillService {
 	List<Bill> searchBill(String keyword);
 	Page<Bill> getAll(Integer pageNo);
 	Page<Bill> searchBill(String keyword, Integer pageNo);
-	List<Bill> findBillByUserId(Long id);
+	List<Bill> findBillbyUserId(Long id);
 }

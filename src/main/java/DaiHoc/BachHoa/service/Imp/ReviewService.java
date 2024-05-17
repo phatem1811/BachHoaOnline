@@ -17,5 +17,8 @@ public class ReviewService implements IReviewService
 	public List<Review> getAll() {
 		return repo.findAll();
 	}
-
+	@Override
+    public void saveReview(Review review) {
+        repo.save(review);
+    }
 }

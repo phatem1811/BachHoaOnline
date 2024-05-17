@@ -92,7 +92,7 @@ public class BillService implements IBillService
 		return new PageImpl<Bill>(list, pageable,  this.searchBill(keyword).size());
 	}
 	@Override
-	public List<Bill> findBillByUserId(Long id) {
+	public List<Bill> findBillbyUserId(Long id) {
 		// TODO Auto-generated method stub
 		return repo.findBillByUserId(id);
 	}

@@ -1,33 +1,229 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Form</title>
+    <title>Đăng Nhập</title>
+    <script src="https://kit.fontawesome.com/b466990d16.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to right, rgb(214,227,227), rgb(170,199,199));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background-color: rgb(214,227,227);
+    padding: 30px 40px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    text-align: center;
+    position: relative;
+}
+
+.message {
+    color: rgb(58,94,94);
+    margin-bottom: 15px;
+}
+
+.logo {
+    width: 80px;
+    margin-bottom: 20px;
+}
+
+.nav-icons {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.nav-icons a {
+    font-size: 24px;
+    color: rgb(58,94,94);
+    text-decoration: none;
+}
+
+.nav-back {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 24px;
+    color: rgb(58,94,94);
+    text-decoration: none;
+}
+
+h2 {
+    margin-bottom: 25px;
+    color: rgb(58,94,94);
+    font-size: 24px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+    position: relative;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: rgb(58,94,94);
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid rgb(170,199,199);
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: rgb(58,94,94);
+    outline: none;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 35px;
+    cursor: pointer;
+}
+
+input[type="submit"],
+.register {
+    width: 95%;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+input[type="submit"] {
+    background-color: rgb(58,94,94);
+    color: #ffffff;
+    border: none;
+}
+
+input[type="submit"]:hover {
+    background-color: rgb(48,84,84);
+}
+
+.register {
+    background-color: rgb(214,227,227);
+    color: rgb(58,94,94);
+    border: 2px solid rgb(58,94,94);
+}
+
+.register:hover {
+    background-color: rgb(58,94,94);
+    color: #ffffff;
+}
+
+.forgot-password {
+    display: block;
+    margin-top: 10px;
+    color: rgb(58,94,94);
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+.or {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.or::before,.or::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #cccccc;
+}
+
+.or:not(:empty)::before {
+    margin-right: .25em;
+}
+
+.or:not(:empty)::after {
+    margin-left: .25em;
+}
+
+    </style>
 </head>
 <body>
     <div class="container">
+        <a href="javascript:history.back()" class="nav-back"><i class="fa-solid fa-arrow-left"></i></a> <!-- Mũi tên quay lại -->
+        <div class="nav-icons">
+            <a href="/home"><i class="fa-solid fa-house"></i></a> 
+        </div>
+        <img src="logo.png" alt="Logo" class="logo"> 
+        
         <div class="message" th:if="${param.error}">
-            Invalid Phone Number or Password
+            Số điện thoại hoặc mật khẩu không đúng
         </div>
         <div class="message" th:if="${param.logout}">
-            Logout Successfully
+            Đăng xuất thành công
         </div>
         
-        <h2>Login Page</h2>
+        <h2>Đăng Nhập</h2>
         <form action="/login" method="post">
             <div class="form-group">
-                <label for="phone">Phooooone:</label>
-                <input type="text" id="phone" name="phone" placeholder="Enter your phone number" required>
+                <label for="phone">Số Điện Thoại</label>
+                <input type="text" id="phone" name="phone" placeholder="Nhập số điện thoại của bạn" required>
             </div>
             
             <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                <label for="password">Mật Khẩu</label>
+                <input type="password" id="password" name="password" placeholder="Nhập mật khẩu của bạn" required>
+                <i class="fa-solid fa-eye toggle-password" onclick="togglePassword()"></i>
             </div>
-            <input type="submit" value="Login">
+	            <!-- Hiển thị thông báo lỗi -->
+	        <div class="message" th:if="${error}">
+	            <p th:text="${error}"></p>
+	        </div>
+            <input type="submit" value="Đăng Nhập">
+            <a href="/forgot-password" class="forgot-password">Quên mật khẩu?</a>
+            <div class="or">hoặc</div>
+            <a href="/register" class="register">Đăng ký tài khoản</a>
         </form>
     </div>
+    <script>
+        function togglePassword() {
+            var passwordInput = document.getElementById('password');
+            var passwordToggle = document.querySelector('.toggle-password');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                passwordToggle.classList.remove('fa-eye');
+                passwordToggle.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                passwordToggle.classList.remove('fa-eye-slash');
+                passwordToggle.classList.add('fa-eye');
+            }
+        }
+    </script>
 </body>
 </html>

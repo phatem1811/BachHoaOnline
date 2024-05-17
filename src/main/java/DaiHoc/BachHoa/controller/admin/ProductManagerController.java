@@ -62,34 +62,6 @@ public class ProductManagerController {
 			list = productService.searchProduct(keyword, pageNo);
 			model.addAttribute("keyword", keyword);
 		}
-//		if(manuid != null && cateid != null) {
-//			if(manuid == 0 && cateid == 0) {
-//				 list = productService.getAll(pageNo);
-//			}
-//			else if(manuid != 0 && cateid != 0) {
-//				Manufacturer manu = manufacturerService.findById(manuid);
-//				
-//				Category cate = categoryService.findById(cateid);
-//				model.addAttribute("manuid", manuid);
-//				model.addAttribute("cateid", cateid);
-//				
-//				list = productService.getAllByCategoryAndManufacturer(cate, manu, pageNo);
-//			}
-//			else if (manuid == 0) {
-//				Category cate = categoryService.findById(cateid);
-//				model.addAttribute("cate", cate);
-//				list = productService.getAllByCategory(cate, pageNo);
-//				model.addAttribute("manuid", manuid);
-//				model.addAttribute("cateid", cateid);
-//			}
-//			
-//			else if (cateid == 0 ) {
-//				Manufacturer manu = manufacturerService.findById(manuid);
-//				list = productService.getAllByManufacturer(manu, pageNo);
-//				model.addAttribute("manuid", manuid);
-//				model.addAttribute("cateid", cateid);
-//			}
-//		}
 
 		model.addAttribute("list", list);
 		model.addAttribute("totalPage", list.getTotalPages());
@@ -128,6 +100,10 @@ public class ProductManagerController {
 		String filename = file.getOriginalFilename();
 		product.setImage(filename);
 		product.setProductDetail(productdetail);
+		
+		Long subid = (long) 1;
+		SubCategory sub = subCategoryService.findById(subid);
+		product.setSubcategory(sub);
 			if (productService.create(product)) {
 				
 				return "redirect:/admin/product";
@@ -163,6 +139,9 @@ public class ProductManagerController {
 			String filename = file.getOriginalFilename();
 			product.setImage(filename);
 		}
+		Long subid = (long) 1;
+		SubCategory sub = subCategoryService.findById(subid);
+		product.setSubcategory(sub);
 		product.setProductDetail(productdetail);
 
 		if (productService.update(product)) {

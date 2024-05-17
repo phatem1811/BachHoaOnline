@@ -4,41 +4,117 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bill Details</title>
+    <title>Chi Tiết Hóa Đơn</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: rgb(214, 227, 227);
+            color: rgb(58, 94, 94);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 90%;
+            max-width: 800px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            text-align: center;
+            color: rgb(58, 94, 94);
+        }
+        p {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid rgb(170, 199, 199);
+        }
+        thead {
+            background-color: rgb(58, 94, 94);
+            color: #fff;
+        }
+        th {
+            font-weight: bold;
+        }
+        tbody tr:nth-child(even) {
+            background-color: rgb(214, 227, 227);
+        }
+        .review-link {
+            text-decoration: none;
+            color: rgb(58, 94, 94);
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        .review-link .fa-star {
+            transition: opacity 0.3s ease;
+        }
+        .review-link:hover .fa-star {
+            opacity: 0;
+        }
+        .review-link .review-text {
+            opacity: 0;
+            position: absolute;
+            transition: opacity 0.3s ease;
+        }
+        .review-link:hover .review-text {
+            opacity: 1;
+        }
+    </style>
 </head>
 <body>
-    <h1>Bill Details</h1>
-    <!-- Bill Information -->
-    <p>ID: <span th:text="${bill.id}"></span></p>
-    <p>Date: <span th:text="${bill.date}"></span></p>
-    <p>Total Price: <span th:text="${bill.total_price}"></span></p>
-    <p>Method of Payment: <span th:text="${bill.method_payment}"></span></p>
-    <p>Address: <span th:text="${bill.address}"></span></p>
-    
-    <!-- Bill Items -->
-    <h2>Bill Items</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Product Name</th> <!-- Change from "Product ID" to "Product Name" -->
-                <th>Quantity</th>
-                <th>Total Lineitem</th>
-                <th>Review</th> <!-- Add Review Column -->
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Iterate through bill details -->
-            <tr th:each="detail : ${billDetails}">
-                <td th:text="${detail.product.name}"></td> <!-- Change from "${detail.product.id}" to "${detail.product.name}" -->
-                <td th:text="${detail.quantity}"></td>
-                <td th:text="${detail.totalLineitem}"></td>
-                <td>
-                    <a th:href="@{/review/{productId}(productId=${detail.product.id})}">
-                        Review
-                    </a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="container">
+        <h1>Chi Tiết Hóa Đơn</h1>
+        <!-- Thông tin hóa đơn -->
+        <p>ID: <span th:text="${bill.id}"></span></p>
+        <p>Ngày: <span th:text="${bill.date}"></span></p>
+        <p>Tổng Giá: <span th:text="${bill.total_price}"></span></p>
+        <p>Phương Thức Thanh Toán: <span th:text="${bill.method_payment}"></span></p>
+        <p>Địa Chỉ: <span th:text="${bill.address}"></span></p>
+
+        <!-- Các mục hóa đơn -->
+        <h2>Danh Sách Sản Phẩm</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Tên Sản Phẩm</th>
+                    <th>Số Lượng</th>
+                    <th>Thành Tiền</th>
+                    <th>Đánh Giá</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Duyệt qua các chi tiết hóa đơn -->
+                <tr th:each="detail : ${billDetails}">
+                    <td th:text="${detail.product.name}"></td>
+                    <td th:text="${detail.quantity}"></td>
+                    <td th:text="${detail.totalLineitem}"></td>
+                    <td>
+                        <a th:href="@{/review/{productId}(productId=${detail.product.id})}" class="review-link">
+                            <i class="fa-solid fa-star"></i>
+                            <span class="review-text">Đánh Giá</span>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

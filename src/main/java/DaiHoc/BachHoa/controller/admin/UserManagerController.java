@@ -103,7 +103,7 @@ public class UserManagerController {
 //	}
 	@GetMapping("/purchase-history/{id}")
 	public String PurchaseHistory(Model model, @PathVariable("id") Long id) {
-		List<Bill> list = billService.findBillByUserId(id);
+		List<Bill> list = billService.findBillbyUserId(id);
 		model.addAttribute("list", list);
 		return "admin/views/user/PurchaseHistory";		
 	}

@@ -1,27 +1,91 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
     <title>User Profile</title>
+    <script src="https://kit.fontawesome.com/b466990d16.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa; /* Màu nền xanh nhạt */
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .profile-container {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+            text-align: center;
+        }
+        .profile-container h2 {
+            margin-bottom: 1rem;
+            color: #00796b; /* Màu xanh đậm */
+        }
+        .profile-container p {
+            margin-bottom: 0.5rem;
+        }
+        .profile-container img {
+            width: 200px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+        }
+        .profile-container .btn {
+            background-color: #00796b; /* Màu xanh đậm */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 0.5rem;
+            transition: background-color 0.3s;
+        }
+        .profile-container .btn:hover {
+            background-color: #004d40; /* Màu xanh đậm hơn */
+        }
+        .nav-icons {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .nav-icons a {
+            color: #00796b; /* Màu xanh đậm */
+            font-size: 1.5rem;
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
+    <div class="profile-container">
+        <div class="nav-icons">
+            <a href="/home"><i class="fa-solid fa-house"></i></a>
+        </div>
+        <h2>Hồ sơ người dùng</h2>
+        <div th:if="${user}">
+            <img src="https://i.pinimg.com/originals/d8/86/05/d88605cc248a9833e1d0b4dfe6a29176.jpg" alt="User Image">
+            <p><strong>Họ tên:</strong> <span th:text="${user.fullname}"></span></p>
+            <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
+            <p><strong>Số điện thoại:</strong> <span th:text="${user.phone}"></span></p>
+            
+            <form th:action="@{/update-profile}" method="post">
+                <button type="submit" class="btn">Cập nhật thông tin</button>
+            </form>
+            
+            <form th:action="@{/change-password}" method="post">
+                <button type="submit" class="btn">Đổi mật khẩu</button>
+            </form>
 
-<h2>User Profile</h2>
-
-<div th:if="${user}">
-    <p><strong>Full Name:</strong> <span th:text="${user.fullname}"></span></p>
-    <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
-    <p><strong>Phone:</strong> <span th:text="${user.phone}"></span></p>
-    
-    <form th:action="@{/update-profile}" method="post">
-        <button type="submit">Update Profile</button>
-    </form>
-    
-    <form th:action="@{/change-password}" method="post">
-        <button type="submit">Change Password</button>
-    </form>
-</div>
-
+            <form th:action="@{/transaction-history}" method="get">
+<button type="submit" class="btn">Lịch sử giao dịch</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

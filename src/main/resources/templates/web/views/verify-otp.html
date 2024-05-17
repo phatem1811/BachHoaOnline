@@ -1,20 +1,125 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Verify OTP</title>
+    <title>Xác Thực OTP</title>
+    <!-- Thêm thư viện Font Awesome -->
+    <script src="https://kit.fontawesome.com/b466990d16.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, rgb(214, 227, 227), rgb(170, 199, 199));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            text-align: center;
+            position: relative;
+        }
+        .logo {
+            width: 80px;
+            margin: 20px auto; /* Đặt logo ở giữa */
+        }
+        h1 {
+            margin-bottom: 25px;
+            color: rgb(58, 94, 94);
+            font-size: 24px;
+        }
+        form {
+            margin-bottom: 20px; /* Thêm khoảng cách giữa form và lời nhắn */
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: rgb(58, 94, 94);
+            text-align: left; /* Căn lề trái cho label */
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid rgb(170, 199, 199);
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+            margin-bottom: 15px; /* Thêm khoảng cách giữa input và button */
+        }
+        input[type="text"]:focus {
+            border-color: rgb(58, 94, 94);
+            outline: none;
+        }
+        button[type="submit"] {
+            width: 100%;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            background-color: rgb(58, 94, 94);
+            color: #ffffff;
+            border: none;
+        }
+        button[type="submit"]:hover {
+            background-color: rgb(170, 199, 199);
+            color: rgb(58, 94, 94);
+        }
+        .icon-left {
+            position: absolute;
+            top: 20px;
+            left: 10px;
+            font-size: 24px;
+            color: rgb(58, 94, 94);
+            cursor: pointer;
+        }
+        .icon-right {
+            position: absolute;
+            top: 20px;
+            right: 10px;
+            font-size: 24px;
+            color: rgb(58, 94, 94);
+            cursor: pointer;
+        }
+        .message {
+            color: rgb(58, 94, 94);
+            margin-bottom: 15px;
+            text-align: left; /* Căn lề trái cho lời nhắn */
+        }
+        .error {
+            color: rgb(0, 128, 0);
+        }
+    </style>
 </head>
 <body>
-    <h1>Verify OTP</h1>
-    <form action="/verify-otp" method="post">
-        <label for="otp">OTP:</label>
-        <input type="text" id="otp" name="otp" required>
-        <button type="submit">Verify OTP</button>
-    </form>
-    <div>
-        <span style="color: red;">
+    <div class="container">
+        <!-- Thêm icon bên trái để quay lại trang đăng nhập -->
+        <a href="/login" class="icon-left"><i class="fa-solid fa-right-to-bracket"></i></a>
+        <!-- Thêm icon bên phải để về trang chủ -->
+        <a href="/home" class="icon-right"><i class="fa-solid fa-house"></i></a>
+        <img src="logo.png" alt="Logo" class="logo">
+        
+        <h1>Xác Thực OTP</h1>
+        <form action="/verify-otp" method="post">
+            <label for="otp">OTP:</label>
+            <input type="text" id="otp" name="otp" placeholder="Nhập mã OTP của bạn" required>
+            <button type="submit">Xác Thực OTP</button>
+        </form>
+        <!-- Thêm lời nhắn thân thiện -->
+        <div class="message">
+            <p>Quý khách vui lòng kiểm tra mail và nhập mã để đặt lại mật khẩu.</p>
+        </div>
+        <!-- Hiển thị lỗi nếu có -->
+        <div class="error">
             <th:block th:if="${error}">[[${error}]]</th:block>
-        </span>
+        </div>
     </div>
 </body>
 </html>

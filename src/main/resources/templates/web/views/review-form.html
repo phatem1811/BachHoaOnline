@@ -1,27 +1,120 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Review Form</title>
+    <script src="https://kit.fontawesome.com/b466990d16.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgb(214, 227, 227);
+            color: rgb(58, 94, 94);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .review-form-container {
+            background-color: rgb(214, 227, 227);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+        h2 {
+            text-align: center;
+            color: rgb(58, 94, 94);
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        .form-group textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: 1px solid rgb(170, 199, 199);
+            border-radius: 4px;
+        }
+        .star-rating {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .star-rating .fa-star {
+            font-size: 2rem;
+            color: rgb(170, 199, 199);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .star-rating .fa-solid.fa-star {
+            color: rgb(58, 94, 94);
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background-color: rgb(58, 94, 94);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .submit-btn:hover {
+            background-color: rgb(48, 84, 84);
+        }
+    </style>
 </head>
 <body>
-    <h2>Review for Product: <span th:text="${productId}"></span></h2>
-    <form th:action="@{/review/{productId}}" method="post" th:object="${review}">
-        <div>
-            <label for="rating">Rating:</label>
-            <select id="rating" name="rating" th:field="*{rating}">
-                <option value="1">1 star</option>
-                <option value="2">2 stars</option>
-                <option value="3">3 stars</option>
-                <option value="4">4 stars</option>
-                <option value="5">5 stars</option>
-            </select>
-        </div>
-        <div>
-            <label for="content">Content:</label>
-            <textarea id="content" name="content" th:field="*{content}"></textarea>
-        </div>
-        <button type="submit">Submit Review</button>
-    </form>
+    <div class="review-form-container">
+        <h2>Đánh giá cho Sản phẩm: <span th:text="${productId}"></span></h2>
+        <form th:action="@{/review/{productId}(productId=${productId})}" method="post" th:object="${review}">
+            <div class="form-group">
+                <label for="rating">Rating:</label>
+                <div class="star-rating">
+                    <i class="fa-regular fa-star" data-value="1"></i>
+                    <i class="fa-regular fa-star" data-value="2"></i>
+                    <i class="fa-regular fa-star" data-value="3"></i>
+                    <i class="fa-regular fa-star" data-value="4"></i>
+                    <i class="fa-regular fa-star" data-value="5"></i>
+                    <input type="hidden" id="rating" name="rating" th:field="*{rating}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="content">Nội dung:</label>
+                <textarea id="content" name="content" rows="4" th:field="*{content}" required></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Gửi đánh giá</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const stars = document.querySelectorAll('.star-rating .fa-star');
+            const ratingInput = document.getElementById('rating');
+
+            stars.forEach(star => {
+                star.addEventListener('click', () => {
+                    const rating = star.getAttribute('data-value');
+                    ratingInput.value = rating;
+
+                    stars.forEach(s => {
+                        s.classList.remove('fa-solid');
+                        s.classList.add('fa-regular');
+                        if (s.getAttribute('data-value') <= rating) {
+                            s.classList.remove('fa-regular');
+                            s.classList.add('fa-solid');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 </body>
 </html>

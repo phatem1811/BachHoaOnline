@@ -181,7 +181,7 @@ public class CartController {
 			bill.setPromotionalCode(procode);
 		}
 		else {
-			long id = 5;
+			long id = 4;
 			PromotionalCode procode = promotionalCodeService.findById(id);	
 			bill.setPromotionalCode(procode);
 		}

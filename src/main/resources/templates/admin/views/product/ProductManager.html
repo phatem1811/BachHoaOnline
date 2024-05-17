@@ -72,7 +72,7 @@
 										<th>Mã sản phẩm</th>
 										<th>Tên sản phẩm</th>
 										<th>Danh mục</th>
-										<th>Danh mục con</th>
+										<th>Thương hiệu</th>
 										<th>Giá</th>
 										<th>Hình ảnh</th>
 
@@ -85,7 +85,7 @@
 										<td th:text="${list.id}"></td>
 										<td th:text="${list.name}"></td>
 										<td th:text="${list.category.name}"></td>
-										<td th:text="${list.subcategory.name}"></td>
+										<td th:text="${list.productDetail.branch.name}"></td>
 										<td th:text="${list.price}"></td>
 										<td>
 											<img th:src="@{'/assets/images/products/' + ${list.image}}"

@@ -54,7 +54,7 @@
 				<form action="">
 					<div class="input-group">
 						<input type="text" class="form-control"
-							placeholder="Search for products">
+							placeholder="Tìm kiếm sản phẩm">
 						<div class="input-group-append">
 							<span class="input-group-text bg-transparent text-primary">
 								<i class="fa fa-search"></i>
@@ -75,7 +75,7 @@
 				</a>
 				 <a href="/profile" th:if="${user != null}" class="btn border" th:text="${user.fullname}"> </a>
 				<a th:if="${user == null}"  href="/login" class="btn border"> Đăng nhập </a>
-				<a th:if="${user == null}"  href="/login" class="btn border"> Đăng kí </a>
+				<a th:if="${user == null}"  href="/register" class="btn border"> Đăng kí </a>
 				<a th:if="${user != null}"  href="/logout" class="btn border"> Đăng xuất </a>
 			</div>
 		</div>
@@ -90,7 +90,7 @@
 					class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100"
 					data-toggle="collapse" href="#navbar-vertical"
 					style="height: 65px; margin-top: -1px; padding: 0 30px; background-color:#00994C !important">
-					<h6 class="m-0">Categories</h6> <i
+					<h6 class="m-0">Danh mục</h6> <i
 					class="fa fa-angle-down text-dark"></i>
 				</a>
 				<nav
@@ -139,7 +139,7 @@
 										Off Your First Order</h4>
 									<h3 class="display-4 text-white font-weight-semi-bold mb-4">Special
 										Offers</h3>
-									<a href="shop.html" class="btn btn-light py-2 px-3">Shop
+									<a href="/home" class="btn btn-light py-2 px-3">Shop
 										Now</a>
 								</div>
 							</div>
@@ -209,7 +209,7 @@
 				<a href="" class="text-decoration-none">
 					<h1 class="mb-4 display-5 font-weight-semi-bold">
 						<span
-							class="text-primary font-weight-bold border border-white px-3 mr-1">E</span>Bách
+							class="text-primary font-weight-bold border border-white px-3 mr-1" style="Color:#00994C !important ">E</span>Bách
 						Hóa
 					</h1>
 				</a>
@@ -241,7 +241,7 @@
 									<input type="text" class="form-control border-white p-4"
 										placeholder="Email Here">
 									<div class="input-group-append">
-										<button class="btn btn-primary px-4">Subscribe</button>
+										<button class="btn btn-primary px-4" style="Background-Color:#00994C !important ">Subscribe</button>
 									</div>
 								</div>
 							</form>
